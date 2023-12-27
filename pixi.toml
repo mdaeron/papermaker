@@ -1,0 +1,22 @@
+[project]
+name = "pandox"
+version = "0.1.0"
+description = "Add a short description here"
+authors = ["mdaeron <mathieu@daeron.fr>"]
+channels = ["conda-forge"]
+platforms = ["osx-arm64"]
+
+[tasks]
+cleantex = "rm -f tex/input/*"
+maketitle = "python maketitle.py"
+makeabstract = "pandoc src/abstract.md -o tex/input/abstract.tex"
+makebody = "pandoc src/body.md -o tex/input/body.tex"
+makeack = "pandoc src/acknowledgements.md -o tex/input/acknowledgements.tex || echo No acknowledgements found"
+makerepro = "pandoc src/reproducibility.md -o tex/input/reproducibility.tex || echo No reproducibility found"
+makebib = "cp src/refs.bib tex/input/refs.bib"
+makepdf = { cmd = 'xelatex main.tex; biber main; xelatex main.tex', depends_on = ["cleantex", "maketitle", "makeabstract", "makebody", "makeack", "makerepro", "makebib"], cwd = 'tex' }
+build = { cmd = 'cp tex/main.pdf build/paper.pdf', depends_on = ["makepdf"]}
+
+[dependencies]
+pandoc = ">=3.1.3,<3.2"
+python = ">=3.12.1,<3.13"

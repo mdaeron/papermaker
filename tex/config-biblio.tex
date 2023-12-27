@@ -1,0 +1,91 @@
+\usepackage[backend=biber,
+%            dashed=true,
+            maxcitenames=2,
+            sorting=none,
+            uniquelist=false,
+            maxbibnames=99,
+            firstinits=false,
+            isbn=false,
+            doi=true,
+            url=true,
+            sortcites=true,
+            defernumbers=true,
+            abbreviate=false,
+			autocite=footnote,
+            style=ext-numeric-comp]{biblatex} 
+
+%%-- formatting hell for biblatex
+
+%-- citations with square brackets
+\DeclareOuterCiteDelims{parencite}{\bibopenbracket}{\bibclosebracket}
+\DeclareInnerCiteDelims{textcite}{\bibopenbracket}{\bibclosebracket}
+
+%%-- remove "In:"
+\renewbibmacro{in:}{}
+
+%%-- no "quotes" around titles of chapters/article titles
+\DeclareFieldFormat[article, inbook, incollection, inproceedings, misc, thesis, unpublished]
+{title}{#1}
+
+%%-- no punctuation after volume
+\DeclareFieldFormat[article]
+{volume}{{#1}} 
+%%-- puts number/issue between brackets
+\DeclareFieldFormat[article, inbook, incollection, inproceedings, misc, thesis, unpublished]
+{number}{\mkbibparens{#1}} 
+%%-- and then for articles directly the pages w/o any "pages" or "pp." 
+\DeclareFieldFormat[article]
+{pages}{pp.~#1}
+%%-- for some types replace "pages" by "p."
+\DeclareFieldFormat[inproceedings, incollection, inbook]
+{pages}{p.~#1}
+%%-- format 16(4):224--225 for articles
+\renewbibmacro*{volume+number+eid}{
+\printfield{volume}%
+\printfield{number}%
+%\printunit{\addcolon}%
+}
+%-- citations with square brackets
+%\makeatletter
+%\newrobustcmd*{\parentexttrack}[1]{
+%  \begingroup
+%  \blx@blxinit%
+%  \blx@setsfcodes%
+%  \blx@bibopenparen#1\blx@bibcloseparen%
+%  \endgroup}
+%\AtEveryCite{
+%  \let\parentext=\parentexttrack%
+%  \let\bibopenparen=\bibopenbracket%
+%  \let\bibcloseparen=\bibclosebracket}
+%\makeatother
+
+%\renewcommand{\mkbibnamefamily}[1]{\emph{#1}}
+%\renewcommand{\mkbibnamelast}[1]{\mkbibemph{#1}}
+
+\DefineBibliographyStrings{english}{andothers = \emph{et\addabbrvspace al\adddot}}
+\DefineBibliographyStrings{english}{and={\&}}
+
+\DeclareFieldFormat{doi}{%
+% \printtext{doi}\addcolon\space
+ \ifhyperref
+ {\href{http://dx.doi.org/#1}{\texttt{#1}}}
+ {\texttt{#1}}}
+
+\DeclareNameAlias{sortname}{family-given}
+
+\renewcommand*{\bibfont}{\normalfont\footnotesize\raggedright}
+%\renewcommand{\textcite}[1]{\citeauthor{#1}~\cite{#1}}
+\renewcommand*{\nameyeardelim}{\addcomma\space}
+
+\newbibmacro*{volume+number+eid}{%
+	\printfield{volume}%
+	\setunit*{\addcolon}%
+	\printfield{number}%
+	\setunit{\addcomma\space}%
+	\printfield{eid}}
+
+\renewcommand*{\bibfont}{\footnotesize}
+
+\newcommand{\namecite}[1]{\citeauthor{#1} \cite{#1}}
+
+\addbibresource{input/refs.bib}

@@ -1,0 +1,22 @@
+title = 'Foo bar baz and the cautionary tale of the mighty racoons from the northern coast'
+
+[[author]]
+name = 'M. Daëron'
+affiliations = 'LSCE'
+email = 'daeron@lsce.ipsl.fr'
+orcid = '0000-0003-1210-9786'
+corresponding = true
+
+[[author]]
+name = 'J. Chaillot'
+affiliations = ['LSCE', 'LIPhy']
+email = 'chaillot@lsce.ipsl.fr'
+
+[[author]]
+name = 'S. Kassi'
+affiliations = 'LIPhy'
+email = 'samir.kassi@univ-grenoble-alpes.fr'
+
+[affiliations]
+LSCE = "Laboratoire des Sciences du Climat et de l'Environnement"
+LIPhy = "Laboratoire Interdisciplinaire de Physique"

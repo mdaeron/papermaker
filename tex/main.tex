@@ -1,0 +1,30 @@
+\documentclass[a4paper,11pt]{article}
+
+\input{config-typography}
+\input{config-geometry}
+\input{config-titlesec}
+\input{config-parskip}
+\input{config-biblio}
+\input{config-hyperref}
+
+\begin{document}
+
+\input{input/maketitle}
+\vspace{20mm}
+
+{\sffamily
+\hrule\vspace{1ex}
+\input{input/abstract}
+\vspace{1ex}\hrule
+}
+
+\vspace{10mm}
+\input{input/body}
+
+\IfFileExists{input/acknowledgements.tex}%
+	{\subsection*{Acknowledgements}\input{input/acknowledgements}}{}
+\IfFileExists{input/reproducibility.tex}%
+	{\subsection*{Reproducible research}\input{input/reproducibility}}{}
+
+\printbibliography
+\end{document}
