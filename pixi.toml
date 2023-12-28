@@ -13,9 +13,11 @@ makeabstract = "pandoc src/abstract.md -o tex/input/abstract.tex"
 makefloats = "python makefloats.py"
 makebody = "pandoc tmp/body_withfloats.md -o tex/input/body.tex"
 makeack = "pandoc src/acknowledgements.md -o tex/input/acknowledgements.tex || echo No acknowledgements found"
+makecontrib = "pandoc src/contributions.md -o tex/input/contributions.tex || echo No contributions found"
 makerepro = "pandoc src/reproducibility.md -o tex/input/reproducibility.tex || echo No reproducibility found"
 makebib = "cp src/refs.bib tex/input/refs.bib"
-makepdf = { cmd = 'xelatex main.tex; biber main; xelatex main.tex', depends_on = ["clean", "maketitle", "makeabstract", "makefloats", "makebody", "makeack", "makerepro", "makebib"], cwd = 'tex' }
+pandoc = { depends_on = ["makeabstract", "makecontrib", "makeack", "makerepro", "makebody"] }
+makepdf = { cmd = 'xelatex main.tex; biber main; xelatex main.tex', depends_on = ["clean", "maketitle", "makefloats", "makebib", "pandoc"], cwd = 'tex' }
 build = { cmd = 'cp tex/main.pdf build/paper.pdf', depends_on = ["makepdf"]}
 
 [dependencies]

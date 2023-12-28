@@ -15,17 +15,20 @@
 \input{input/maketitle}
 \vspace{20mm}
 
-{\sffamily\small
+\IfFileExists{input/abstract.tex}%
+{{\sffamily\small
 \hrule\vspace{0ex}
 \input{input/abstract}
 \vspace{1ex}\hrule
-}
+}}{}
 
 \vspace{10mm}
 \input{input/body}
 
 \IfFileExists{input/acknowledgements.tex}%
 	{\subsection*{Acknowledgements}\input{input/acknowledgements}}{}
+\IfFileExists{input/contributions.tex}%
+	{\subsection*{Author contributions}\input{input/contributions}}{}
 \IfFileExists{input/reproducibility.tex}%
 	{\subsection*{Reproducible research}\input{input/reproducibility}}{}
 
