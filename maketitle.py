@@ -29,7 +29,10 @@ with open('tex/input/maketitle.tex', 'w') as fid:
 
 	authorlist = []
 	for author in meta['author']:
-		authorlist.append(author['name'])
+		if 'email' in author:
+			authorlist.append(f"\\href{{mailto:{author['email']}}}{{\\color{{black}}{{{author['name']}}}}}")
+		else:
+			authorlist.append(author['name'])
 		if 'corresponding' in author and author['corresponding']:
 			authorlist[-1] += '*'
 		if 'affiliations' in author:
@@ -38,7 +41,10 @@ with open('tex/input/maketitle.tex', 'w') as fid:
 				f"{affiliationmarkers[affiliation]}"
 				for affiliation in author['affiliations']
 				])
-			authorlist[-1] += ')}'
+			authorlist[-1] += ')'
+			if 'orcid' in author:
+				authorlist[-1] += f'\\,{{\\raisebox{{-0.07ex}}{{\\href{{https://orcid.org/{author["orcid"]}}}{{\\color{{white!67!black}}{{\\faOrcid}}}}}}}}'
+			authorlist[-1] += '}'
 
 	authorstr = ', '.join(authorlist)
 
@@ -48,9 +54,15 @@ with open('tex/input/maketitle.tex', 'w') as fid:
   }}\\\\
   \\vspace{{8mm}}""")
 
-	fid.write("""
+	if len([author for author in meta['author'] if 'corresponding' in author and author['corresponding']]) == 1:
+		fid.write("""
   {\\small
     * {\\itshape corresponding author}\\\\""")
+
+	elif len([author for author in meta['author'] if 'corresponding' in author and author['corresponding']]) > 1:
+		fid.write("""
+  {\\small
+    * {\\itshape corresponding authors}\\\\""")
 
 	for affiliation in affiliationmarkers:
 		fid.write(f"""

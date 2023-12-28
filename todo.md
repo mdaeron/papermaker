@@ -1,3 +1,2 @@
-- add orcid
 - number paragraphs
 - add wrapping figures
