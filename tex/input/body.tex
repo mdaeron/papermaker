@@ -1,33 +1,92 @@
-\newcommand{\foofoo}{barbar}
+\newcommand{\foo}{FOO}
+\newcommand{\baz}{BAZ}
+\newcommand{\degC}[1]{\,°C}
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\hypertarget{source-files}{%
+\section{Source files}\label{source-files}}
 
-Pretium barbar{} aenean pharetra magna ac placerat vestibulum lectus
-mauris. Scelerisque varius morbi enim nunc \cite{Coplen-2007}. In vitae
-turpis massa sed elementum tempus. Et magnis dis parturient montes
-nascetur. Blandit libero volutpat sed cras ornare arcu dui vivamus. Urna
-neque viverra justo nec ultrices dui sapien. Purus in mollis nunc sed id
+\hypertarget{text}{%
+\subsection{Text}\label{text}}
+
+The body of the article is typeset based on the contents of
+\texttt{src/body.md}. Other parts of the document are from
+\texttt{src/abstract.md}, \texttt{src/contributions.md},
+\texttt{src/acknowledgements.md}, and \texttt{src/reproducibility.md}.
+Metadata such as authors' names, emails, ORCIDs, institutions, or the
+article's title, are defined in \texttt{src/metadata.toml}.
+
+\hypertarget{figures}{%
+\subsection{Figures}\label{figures}}
+
+Figures are stored in \texttt{src/figures}. Each figure is defined by
+two files:
+
+\begin{itemize}
+\tightlist
+\item
+  a single PDF file, with a \texttt{.pdf} extension, corresponding to
+  the contents of the figure (e.g., a picture or a plot)
+\item
+  a single Markdown file, with a \texttt{.md} extension, corresponding
+  to the caption for this figure.
+\end{itemize}
+
+For example, \texttt{src/figures} may contain:
+
+\begin{verbatim}
+src
+└── figures
+    ├── age-plot.md
+    ├── age-plot.pdf
+    ├── field-photos.md
+    ├── field-photos.md
+    ├── geol-map.md
+    └── geol-map.pdf
+\end{verbatim}
+
+In \texttt{src/body.md}, you may insert a figure using simple
+\texttt{toml} syntax such as:
+
+\begin{verbatim}
+%%% figure
+name = 'age-plot'
+label = 'fig:age-plot'
+%%% end-figure
+\end{verbatim}
+
+This will create a floating figure such as fig.~\ref{fig:age-plot}.
+
+\hypertarget{custom-commands}{%
+\section{Custom commands}\label{custom-commands}}
+
+You may define \LaTeX{} commands at the top of this source file using
+\texttt{\textbackslash{}newcommand\{\}}:
+
+\begin{verbatim}
+\newcommand{\foo}{FOO}
+\newcommand{\baz}{BAZ}
+\newcommand{\degC}[1]{\,°C}
+\end{verbatim}
+
+Thereafter, \texttt{\textbackslash{}foo\{\}} in the source will be
+typeset as FOO{}, \texttt{\textbackslash{}baz\{\}} as BAZ{}, and
+\texttt{37.2\textbackslash{}degC\{\}} as 37.2\,°C.
+
+\hypertarget{citations}{%
+\section{Citations}\label{citations}}
+
+You may cite references defined in the Bib\TeX{} file
+\texttt{src/refs.bib} using the following commands.
+
+Pretium aenean pharetra magna ac placerat vestibulum lectus mauris.
+Scelerisque varius morbi enim nunc \cite{Coplen-2007}. In vitae turpis
+massa sed elementum tempus. Et magnis dis parturient montes nascetur.
+Blandit libero volutpat sed cras ornare arcu dui vivamus. Urna neque
+viverra justo nec ultrices dui sapien. Purus in mollis nunc sed id
 semper. Auctor augue mauris augue neque gravida in fermentum et
 sollicitudin. Fringilla ut morbi tincidunt augue. Nunc mi ipsum faucibus
 vitae aliquet nec ullamcorper sit. Morbi tincidunt ornare massa eget
 egestas purus viverra \namecite{Coogan-2019}.
-
-\begin{figure}[b!]
-\center
-\includegraphics[width=80mm]{input/qmc}\\
-\caption{
-\textbf{Lorem ipsum dolor sit amet}: Consectetur adipiscing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae
-elementum curabitur vitae nunc. Nunc lobortis mattis aliquam faucibus.
-Orci sagittis eu volutpat odio. Lobortis scelerisque fermentum dui
-faucibus in ornare quam viverra orci. Vitae congue eu consequat ac felis
-donec. Quis risus sed vulputate odio ut enim. Pellentesque pulvinar
-pellentesque habitant morbi tristique senectus et. Arcu dictum varius
-duis at consectetur lorem. Fermentum dui faucibus in ornare.
-}
-\label{fig:qmc}
-\end{figure}
 
 \hypertarget{methods}{%
 \section{Methods}\label{methods}}
@@ -55,7 +114,7 @@ laoreet sit. Enim ut tellus elementum sagittis vitae et leo. Amet nisl
 suscipit adipiscing bibendum est. Non blandit massa enim nec dui nunc
 mattis enim ut. Tellus elementum sagittis vitae et leo duis ut.
 
-\begin{table}[t!]
+\begin{table}[b!]
 \center
 \small
 \begin{tabular}{rcl}
@@ -86,6 +145,26 @@ lacinia quis vel eros donec ac odio tempor. Tellus mauris a diam
 maecenas sed enim. Mattis molestie a iaculis at erat pellentesque
 adipiscing commodo elit. Lectus arcu bibendum at varius vel pharetra vel
 turpis nunc.
+
+\begin{figure}[tb]
+\begin{minipage}{0.49999999999999994\textwidth}
+\includegraphics[width=\textwidth]{input/qmc}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+\caption{
+\textbf{Lorem ipsum dolor sit amet}: Consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae
+elementum curabitur vitae nunc. Nunc lobortis mattis aliquam faucibus.
+Orci sagittis eu volutpat odio. Lobortis scelerisque fermentum dui
+faucibus in ornare quam viverra orci. Vitae congue eu consequat ac felis
+donec. Quis risus sed vulputate odio ut enim. Pellentesque pulvinar
+pellentesque habitant morbi tristique senectus et. Arcu dictum varius
+duis at consectetur lorem. Fermentum dui faucibus in ornare.
+}
+\label{fig:qmc}
+\end{minipage}
+\end{figure}
 
 \hypertarget{results}{%
 \section{Results}\label{results}}

@@ -30,7 +30,8 @@
 	UprightFont = JetBrains Mono Regular,%
 	BoldFont = JetBrains Mono Bold,%
 	ItalicFont = JetBrains Mono Italic,%
-	BoldItalicFont = JetBrains Mono Bold Italic%
+	BoldItalicFont = JetBrains Mono Bold Italic,%
+%	Color = 008800,%
 	]{JetBrains Mono}
 
 %%%%%%%%%%%%%%%% MATHS %%%%%%%%%%%%%%%%
@@ -73,3 +74,8 @@
 %%%%%%%%%%%%%%%% TYPOGRAPHY %%%%%%%%%%%%%%%%
 \usepackage[stretch=10]{microtype}
 \usepackage[defaultlines=2,all]{nowidow}
+
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=1ex \partopsep=1ex \color[rgb]{.3,.3,.3}}
+\makeatother

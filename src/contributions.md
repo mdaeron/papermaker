@@ -1,1 +1,1 @@
-MD did the experiments. JC processed the data. SK drafted the manuscript. All authors contributed to manuscript improvement and revisions.
+MD wrote everything. KM, PMBH and MGS, being entirely fictional characters, did not contribute anything but recreative humor.

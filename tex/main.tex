@@ -10,6 +10,15 @@
 \input{config-biblio}
 \input{config-hyperref}
 
+\definecolor{codebgcolor}{HTML}{F0F0F0}
+\definecolor{codebdcolor}{HTML}{D0D0D0}
+\let\oldtexttt\texttt
+\renewcommand{\texttt}[1]{\fcolorbox{codebdcolor}{codebgcolor}{\oldtexttt{#1}}}
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
 \begin{document}
 
 \input{input/maketitle}

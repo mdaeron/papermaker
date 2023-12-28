@@ -17,7 +17,7 @@ makecontrib = "pandoc src/contributions.md -o tex/input/contributions.tex || ech
 makerepro = "pandoc src/reproducibility.md -o tex/input/reproducibility.tex || echo No reproducibility found"
 makebib = "cp src/refs.bib tex/input/refs.bib"
 pandoc = { depends_on = ["makeabstract", "makecontrib", "makeack", "makerepro", "makebody"] }
-makepdf = { cmd = 'xelatex main.tex; biber main; xelatex main.tex', depends_on = ["clean", "maketitle", "makefloats", "makebib", "pandoc"], cwd = 'tex' }
+makepdf = { cmd = 'python ../makepdf.py', depends_on = ["clean", "maketitle", "makefloats", "makebib", "pandoc"], cwd = 'tex' }
 build = { cmd = 'cp tex/main.pdf build/paper.pdf', depends_on = ["makepdf"]}
 
 [dependencies]

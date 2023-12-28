@@ -1,24 +1,64 @@
-\newcommand{\foofoo}{barbar}
+\newcommand{\foo}{FOO}
+\newcommand{\baz}{BAZ}
+\newcommand{\degC}[1]{\,°C}
 
-# Introduction
+# Source files
 
-Pretium \foofoo{} aenean pharetra magna ac placerat vestibulum lectus mauris. Scelerisque varius morbi enim nunc \cite{Coplen-2007}. In vitae turpis massa sed elementum tempus. Et magnis dis parturient montes nascetur. Blandit libero volutpat sed cras ornare arcu dui vivamus. Urna neque viverra justo nec ultrices dui sapien. Purus in mollis nunc sed id semper. Auctor augue mauris augue neque gravida in fermentum et sollicitudin. Fringilla ut morbi tincidunt augue. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Morbi tincidunt ornare massa eget egestas purus viverra \namecite{Coogan-2019}.
+## Text
 
-\begin{figure}[b!]
-\center
-\includegraphics[width=80mm]{input/qmc}\\
-\caption{
-\textbf{Lorem ipsum dolor sit amet}: Consectetur adipiscing elit, sed do
-eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae
-elementum curabitur vitae nunc. Nunc lobortis mattis aliquam faucibus.
-Orci sagittis eu volutpat odio. Lobortis scelerisque fermentum dui
-faucibus in ornare quam viverra orci. Vitae congue eu consequat ac felis
-donec. Quis risus sed vulputate odio ut enim. Pellentesque pulvinar
-pellentesque habitant morbi tristique senectus et. Arcu dictum varius
-duis at consectetur lorem. Fermentum dui faucibus in ornare.
-}
-\label{fig:qmc}
-\end{figure}
+The body of the article is typeset based on the contents of `src/body.md`.
+Other parts of the document are from `src/abstract.md`,  `src/contributions.md`,  `src/acknowledgements.md`, and  `src/reproducibility.md`.
+Metadata such as authors' names, emails, ORCIDs, institutions, or the article's title, are defined in `src/metadata.toml`.
+
+## Figures
+
+Figures are stored in `src/figures`.
+Each figure is defined by two files:
+
+- a single PDF file, with a `.pdf` extension, corresponding to the contents of the figure (e.g., a picture or a plot)
+- a single Markdown file, with a `.md` extension, corresponding to the caption for this figure.
+
+For example, `src/figures` may contain:
+
+```
+src
+└── figures
+    ├── age-plot.md
+    ├── age-plot.pdf
+    ├── field-photos.md
+    ├── field-photos.md
+    ├── geol-map.md
+    └── geol-map.pdf
+```
+
+In `src/body.md`, you may insert a figure using simple `toml` syntax such as:
+
+```
+%%% figure
+name = 'age-plot'
+label = 'fig:age-plot'
+%%% end-figure
+```
+
+This will create a floating figure such as fig. \ref{fig:age-plot}.
+
+# Custom commands
+
+You may define \LaTeX{} commands at the top of this source file using `\newcommand{}`:
+
+```
+\newcommand{\foo}{FOO}
+\newcommand{\baz}{BAZ}
+\newcommand{\degC}[1]{\,°C}
+```
+
+Thereafter, `\foo{}` in the source will be typeset as \foo{}, ```\baz{}``` as \baz{}, and `37.2\degC{}` as 37.2\degC{}.
+
+# Citations
+
+You may cite references defined in the Bib\TeX{} file `src/refs.bib` using the following commands.
+
+Pretium aenean pharetra magna ac placerat vestibulum lectus mauris. Scelerisque varius morbi enim nunc \cite{Coplen-2007}. In vitae turpis massa sed elementum tempus. Et magnis dis parturient montes nascetur. Blandit libero volutpat sed cras ornare arcu dui vivamus. Urna neque viverra justo nec ultrices dui sapien. Purus in mollis nunc sed id semper. Auctor augue mauris augue neque gravida in fermentum et sollicitudin. Fringilla ut morbi tincidunt augue. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Morbi tincidunt ornare massa eget egestas purus viverra \namecite{Coogan-2019}.
 
 # Methods
 \label{sec:methods}
@@ -32,7 +72,7 @@ print(foo.bar)
 
 Eu augue ut lectus arcu bibendum at varius vel pharetra. Feugiat vivamus at augue eget arcu dictum varius duis. Mattis enim ut tellus elementum sagittis vitae et leo. Ac ut consequat semper viverra nam libero justo laoreet sit. Enim ut tellus elementum sagittis vitae et leo. Amet nisl suscipit adipiscing bibendum est. Non blandit massa enim nec dui nunc mattis enim ut. Tellus elementum sagittis vitae et leo duis ut.
 
-\begin{table}[t!]
+\begin{table}[b!]
 \center
 \small
 \begin{tabular}{rcl}
@@ -53,6 +93,26 @@ code.
 \end{table}
 
 Amet commodo nulla facilisi (\ref{eq:foo}) nullam vehicula. Congue mauris rhoncus aenean vel elit. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Euismod lacinia at quis risus sed vulputate odio. Lacinia quis vel eros donec ac odio. Mattis pellentesque id nibh tortor id aliquet lectus. Mi proin sed libero enim sed faucibus turpis in. Ut sem viverra aliquet eget sit amet tellus cras. Egestas diam in arcu cursus. Enim ut sem viverra aliquet. Tortor condimentum lacinia quis vel eros donec ac odio tempor. Tellus mauris a diam maecenas sed enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Lectus arcu bibendum at varius vel pharetra vel turpis nunc.
+
+\begin{figure}[tb]
+\begin{minipage}{0.49999999999999994\textwidth}
+\includegraphics[width=\textwidth]{input/qmc}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+\caption{
+\textbf{Lorem ipsum dolor sit amet}: Consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae
+elementum curabitur vitae nunc. Nunc lobortis mattis aliquam faucibus.
+Orci sagittis eu volutpat odio. Lobortis scelerisque fermentum dui
+faucibus in ornare quam viverra orci. Vitae congue eu consequat ac felis
+donec. Quis risus sed vulputate odio ut enim. Pellentesque pulvinar
+pellentesque habitant morbi tristique senectus et. Arcu dictum varius
+duis at consectetur lorem. Fermentum dui faucibus in ornare.
+}
+\label{fig:qmc}
+\end{minipage}
+\end{figure}
 
 # Results
 

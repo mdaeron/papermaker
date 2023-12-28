@@ -1,4 +1,4 @@
-title = 'Foo bar baz and the cautionary tale of the mighty racoons from the northern coast'
+title = 'Papermaker — an attempt at frictionless typesetting of publication-ready scientific articles'
 
 [[author]]
 name = 'M. Daëron'
@@ -8,17 +8,22 @@ orcid = '0000-0003-1210-9786'
 corresponding = true
 
 [[author]]
-name = 'J. Chaillot'
-affiliations = ['LSCE', 'LIPhy']
-email = 'chaillot@lsce.ipsl.fr'
-corresponding = true
+name = 'K. Malone'
+affiliations = ['DMPC']
+email = 'kevin@dmpc.com'
 
 [[author]]
-name = 'S. Kassi'
-affiliations = 'LIPhy'
-orcid = 'xxxx-xxxx-xxxx-xxxx'
-email = 'samir.kassi@univ-grenoble-alpes.fr'
+name = 'P. M. Beesly-Halpert'
+affiliations = ['DMPC', 'MSPC']
+email = 'pam@dmpc.com'
+
+[[author]]
+name = 'M. G. Scott'
+affiliations = ['DMPC', 'MSPC']
+email = 'micheal@mspc.com'
+corresponding = true
 
 [affiliations]
 LSCE = "Laboratoire des Sciences du Climat et de l'Environnement"
-LIPhy = "Laboratoire Interdisciplinaire de Physique"
+DMPC = "Dunder Mifflin Paper Company"
+MSPC = "Michael Scott Paper Company"
