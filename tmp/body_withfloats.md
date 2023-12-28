@@ -2,12 +2,21 @@
 
 Pretium aenean pharetra magna ac placerat vestibulum lectus mauris. Scelerisque varius morbi enim nunc \cite{Coplen-2007}. In vitae turpis massa sed elementum tempus. Et magnis dis parturient montes nascetur. Blandit libero volutpat sed cras ornare arcu dui vivamus. Urna neque viverra justo nec ultrices dui sapien. Purus in mollis nunc sed id semper. Auctor augue mauris augue neque gravida in fermentum et sollicitudin. Fringilla ut morbi tincidunt augue. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Morbi tincidunt ornare massa eget egestas purus viverra \namecite{Coogan-2019}.
 
-%%% figure
-name = 'qmc'
-position = 'b!'
-label = 'fig:qmc'
-width = '80mm'
-%%% end-figure
+\begin{figure}[b!]
+\center
+\includegraphics[width=80mm]{input/qmc}
+\caption{
+\textbf{Lorem ipsum dolor sit amet}: Consectetur adipiscing elit, sed do
+eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae
+elementum curabitur vitae nunc. Nunc lobortis mattis aliquam faucibus.
+Orci sagittis eu volutpat odio. Lobortis scelerisque fermentum dui
+faucibus in ornare quam viverra orci. Vitae congue eu consequat ac felis
+donec. Quis risus sed vulputate odio ut enim. Pellentesque pulvinar
+pellentesque habitant morbi tristique senectus et. Arcu dictum varius
+duis at consectetur lorem. Fermentum dui faucibus in ornare.
+}
+\label{fig:qmc}
+\end{figure}
 
 # Methods
 \label{sec:methods}

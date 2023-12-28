@@ -23,7 +23,7 @@ with open('tex/input/maketitle.tex', 'w') as fid:
   \\raggedright
   \\sffamily
   {{\\huge\\bfseries
-    {meta['title']}\\\\\mbox{{}}
+    {meta['title']}\\\\\\mbox{{}}
   }}\\\\
   \\vspace{{4mm}}""")
 
