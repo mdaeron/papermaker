@@ -1,4 +1,4 @@
-- add figures
+- definecommands
 - add tables
 - add orcid
 - number paragraphs

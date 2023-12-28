@@ -1,5 +1,5 @@
 [project]
-name = "pandox"
+name = "papermaker"
 version = "0.1.0"
 description = "Add a short description here"
 authors = ["mdaeron <mathieu@daeron.fr>"]

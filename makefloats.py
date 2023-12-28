@@ -19,6 +19,60 @@ def makefig(lines):
 
 	return f"""\\begin{{figure}}[{meta['position']}]
 \\center
+\\includegraphics[{shapestr}]{{input/{meta['name']}}}\\\\
+\\caption{{
+{caption}
+}}
+\\label{{{meta['label']}}}
+\\end{{figure}}
+"""
+
+def maketable(lines):
+	meta = tomllib.load(BytesIO(''.join(lines).encode()))
+
+	subprocess.run(['pandoc', f"src/tables/{meta['name']}.md", '-o', 'tmp/caption.tex'])
+	
+	with open('tmp/caption.tex') as fid:
+		caption = fid.read().strip()
+
+	try:
+		shutil.copyfile(f"src/tables/{meta['name']}.pdf", f"tex/input/{meta['name']}.pdf")
+
+		wstr = f"width={meta['width']}" if 'width' in meta else ""
+		hstr = f"height={meta['height']}" if 'height' in meta else ""
+		shapestr = ','.join([_ for _ in [wstr, hstr] if _])
+
+		return f"""\\begin{{table}}[{meta['position']}]
+\\center
+\\includegraphics[{shapestr}]{{input/{meta['name']}}}\\\\
+\\caption{{
+{caption}
+}}
+\\label{{{meta['label']}}}
+\\end{{table}}
+"""
+
+	except FileNotFoundError:
+		with open(f"src/tables/{meta['name']}.tex") as fid:
+			latextable = fid.read().strip()
+
+		fontsize = meta['fontsize'] if 'fontsize' in meta else 'small'
+		
+		return f"""\\begin{{table}}[{meta['position']}]
+\\center
+\\{fontsize}
+{latextable}
+\\caption{{
+{caption}
+}}
+\\label{{{meta['label']}}}
+\\end{{table}}
+"""
+		
+
+	return ""
+	return f"""\\begin{{figure}}[{meta['position']}]
+\\center
 \\includegraphics[{shapestr}]{{input/{meta['name']}}}
 \\caption{{
 {caption}
@@ -41,5 +95,23 @@ while True:
 		break
 	lines = lines[:kstart] + [makefig(lines[kstart+1:kstop])] + lines[kstop+1:]
 
+while True:
+	for k,l in enumerate(lines):
+		if l.startswith('%%% table'):
+			kstart = k
+		elif l.startswith('%%% end-table'):
+			kstop = k
+			break
+	else:
+		break
+	lines = lines[:kstart] + [maketable(lines[kstart+1:kstop])] + lines[kstop+1:]
+
+out = ''.join(lines)
+
+with open('src/substitutions.txt') as fid:
+	substitutions = [_.strip().split('\t') for _ in fid.readlines()]
+for s in substitutions:
+	out = out.replace(*s)
+
 with open('tmp/body_withfloats.md', 'w') as fid:
-	fid.write(''.join(lines))
+	fid.write(out)

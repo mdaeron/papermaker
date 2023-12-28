@@ -1,0 +1,17 @@
+Δ47	Δ\textsubscript{47}
+Δ48	Δ\textsubscript{48}
+Δ49	Δ\textsubscript{49}
+Δ638	Δ\textsubscript{638}
+Δ828	Δ\textsubscript{828}
+Δ838	Δ\textsubscript{838}
+Δ637	Δ\textsubscript{637}
+Δ738	Δ\textsubscript{738}
+δ13CVPDB	δ\textsuperscript{13}C\textsubscript{VPDB}
+δ13C	δ\textsuperscript{13}C
+δ18OVPDB	δ\textsuperscript{18}O\textsubscript{VPDB}
+δ18OVSMOW	δ\textsuperscript{18}O\textsubscript{VSMOW}
+δ18O	δ\textsuperscript{18}O
+δ17OVSMOW	δ\textsuperscript{17}O\textsubscript{VSMOW}
+δ17O	δ\textsuperscript{17}O
+Δ17OVSMOW	Δ\textsuperscript{17}O\textsubscript{VSMOW}
+Δ17O	Δ\textsuperscript{17}O

@@ -1,0 +1,1 @@
+**PDF Table**: this is a table provided as a PDF by an external piece of software.
