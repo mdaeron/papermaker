@@ -1,2 +1,3 @@
 - number paragraphs
 - add wrapping figures
+- better email display
