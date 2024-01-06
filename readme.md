@@ -107,6 +107,8 @@ Other possible attributes are:
 
 ## Tables
 
+> Work in progress
+
 ## Custom commands
 
 You may define \LaTeX{} commands either in `src/preamble.tex`  or at the top of `src/body.md`,  using `\newcommand{}`, e.g.:
