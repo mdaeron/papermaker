@@ -104,3 +104,48 @@ Other possible attributes are:
 
 - `sidecaption`: if this keyword is present and set to one of `"right"`, `"left"`, `"r"`, or `"l"`, the caption will be typeset on the side rather than at the bottom of the figure.
 - `sidecaptionwidth`: specify the width fraction used up by the side caption (default is `0.5`).
+
+## Tables
+
+## Custom commands
+
+You may define \LaTeX{} commands either in `src/preamble.tex`  or at the top of `src/body.md`,  using `\newcommand{}`, e.g.:
+
+```
+\newcommand{\foo}{FOO}
+\newcommand{\degC}[1]{\,°C}
+```
+
+Thereafter, `\foo{}` in the source will be typeset as “FOO” and `37.2\degC{}` as “37.2 °C”.
+
+## Citations
+
+You may cite references defined in the BibTeX file `src/refs.bib` using the following commands:
+
+- `\cite{foo}` with be typeset as “[X]” (where X is a integer incremented with each new citation).
+- `\namecite{foo}` with be typeset as “Foo et al. [X]”
+
+## Equations
+
+Numbered equations follow LaTeX syntax, using either UTF encoding (e.g `δ`) or LaTeX commands (e.g., `\delta`):
+
+```
+\begin{equation}
+\sigma = \sum_i4\cdot α^2_i
+\label{eq:foo}
+\end{equation}
+```
+
+Unnumbered equations use LaTeX math's display mode:
+
+```
+\[
+\sigma = \sum_i4\cdot α^2_i
+\]
+```
+
+Which should be rendered as:
+
+\[
+\sigma = \sum_i4\cdot α^2_i
+\]
