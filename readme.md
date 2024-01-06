@@ -146,6 +146,6 @@ Unnumbered equations use LaTeX math's display mode:
 
 Which should be rendered as:
 
-\[
+$$
 \sigma = \sum_i4\cdot α^2_i
-\]
+$$
