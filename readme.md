@@ -1,4 +1,4 @@
-# papermaker
+# papermaker (work in progress)
 
 Typeset professional-quality scientific articles from mostly-Markdown sources, retaining the ability to use LaTeX.
 
