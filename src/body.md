@@ -150,7 +150,7 @@ position = 'tb'
 label = 'fig:qmc'
 width = '\textwidth'
 sidecaption = 'right'
-sidecaptionwidth = '0.45'
+sidecaptionwidth = 0.45
 ```
 
 # Results

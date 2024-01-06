@@ -89,8 +89,18 @@ The `name` attribute is mandatory and must correspond to a pair of files in `src
 Other possible attributes are:
 
 - `label`: used to reference the figure number elsewhere in the text: `Fig. \ref{fig:field-photos}` will be typeset as “Fig. \ref{fig:field-photos}”. You may use a non-breakable space (`alt-space` on a Mac) before the `\ref` command.
-- `width`
-- `height`
-- `position`
-- `sidecaption`
-- `sidecaptionwidth`
+- `width`: specify the printed width of the figure; may be anything that LaTeX understand (e.g., `10cm`; `80mm`; `4in`; `0.8\textwidth`...).
+- `height`: specify the printed height of the figure; may be anything that LaTeX understand.
+- `position`: specify the desired position of the floating figure; you may use any combination of the following parameters:
+
+
+| Parameter | Position |
+|:---------:|:---------|
+| h         | Place the float here, i.e., approximately at the same point it occurs in the source text (however, not exactly at the spot) |
+| t         | Position at the top of the page. |
+| b         | Position at the bottom of the page. |
+| p         | Put on a special page for floats only. |
+| !         | Override internal parameters LaTeX uses for determining "good" float positions. |
+
+- `sidecaption`: if this keyword is present and set to one of `"right"`, `"left"`, `"r"`, or `"l"`, the caption will be typeset on the side rather than at the bottom of the figure.
+- `sidecaptionwidth`: specify the width fraction used up by the side caption (default is `0.5`).
