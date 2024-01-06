@@ -12,6 +12,7 @@
 
 \definecolor{codebgcolor}{HTML}{F0F0F0}
 \definecolor{codebdcolor}{HTML}{D0D0D0}
+\fboxsep=1pt
 \let\oldtexttt\texttt
 \renewcommand{\texttt}[1]{\fcolorbox{codebdcolor}{codebgcolor}{\oldtexttt{#1}}}
 
@@ -19,10 +20,16 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
+\setcounter{secnumdepth}{3}
+
+\newcommand{\fakesuperscript}[1]{\raisebox{0ex}{\scalebox{.7}{#1}}}
+
+\IfFileExists{input/preamble.tex}{\input{input/preamble}}{}
+
 \begin{document}
 
 \input{input/maketitle}
-\vspace{20mm}
+\vspace{14mm}
 
 \IfFileExists{input/abstract.tex}%
 {{\sffamily\small
@@ -31,7 +38,7 @@
 \vspace{1ex}\hrule
 }}{}
 
-\vspace{10mm}
+\vspace{5mm}
 \input{input/body}
 
 \IfFileExists{input/acknowledgements.tex}%

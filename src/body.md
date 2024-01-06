@@ -1,16 +1,79 @@
-\newcommand{\foo}{FOO}
-\newcommand{\baz}{BAZ}
-\newcommand{\degC}[1]{\,°C}
+# Design goals and philosophy
+
+* separate content (source files) and formatting (template)
+* use Markdown format by default, keeping the option to use LaTeX whenever needed
+* define metadata (title, authors, affiliations...) only once, all in a single `toml` file
+* use LaTeX for inline math expressions and numbered or unnumbered equations
+* use simple 'toml' syntax to specify floating figures and tables
+* use LaTeX syntax for referencing figures, tables, sections or page numbers
+* insert in-text citations defined in a separate BibTeX file, with the list of references being generated automatically
+* optionally define custom LaTeX commands and/or document-wide text substitutions
+
+The core idea behind `papermaker` is that *writing* LaTeX is not particularly hard using modern implementations like XeLaTeX, which use UTF-8 encoding by default. It is usually much more challenging/time-consuming to fine-tune the final document's format by fiddling with the LaTeX source. On the other hand, it is much easier to share/re-use text writtent in Markdown than LaTeX. `papermaker` thus uses Markdown by default, keeping the considerable power of LaTeX available where needed, and hides the complex LaTeX syntax for important constructs such as floating figures behind a simpler `toml` syntax.
+
+# Installation and usage
+
+This is an early-stage work in progress. For now, you need to install a LaTeX distribution and the other dependencies are handled by [pixi](https://pixi.sh).
+
+* Install [TeX Live](https://www.tug.org/svn/texlive) (on a Mac, your best option is [MacTeX](http://www.tug.org/mactex))
+* Install pixi (instructions [here](https://pixi.sh))
+* From `papermaker`'s root directory, `pixi run build` should process your paper, installing the required dependencies as needed in the rist run.
+* When building an article, `papermaker` looks for source files in `src`, and the output is saved to `build`.
+
+```
+[figure]
+foo
+bar
+```
+
 
 # Source files
+
+## Metadata
+\label{sec:metadata}
+
+Metadata such as authors' names, emails, ORCIDs, institutions, or the article's title, are defined in `src/metadata.toml`.
+
+\vspace{2ex}
+\begin{lstlisting}
+title = 'The title of the paper'
+
+[[author]]
+name = 'J. Smith'
+affiliations = 'USS'
+email = 'john.smith@server.net'
+orcid = '0000-0000-000-000'
+corresponding = true
+
+[[author]]
+name = 'J. Doe'
+affiliations = ['AFA', 'USS']
+email = 'jane.doe@server.net'
+
+[affiliations]
+USS = "University of Scientific Studies"
+AFA = "Academy of the Fine Arts"
+\end{lstlisting}
+\vspace{2ex}
 
 ## Text
 
 The body of the article is typeset based on the contents of `src/body.md`.
 Other parts of the document are from `src/abstract.md`,  `src/contributions.md`,  `src/acknowledgements.md`, and  `src/reproducibility.md`.
-Metadata such as authors' names, emails, ORCIDs, institutions, or the article's title, are defined in `src/metadata.toml`.
 
 ## Figures
+
+%%% figure
+name = 'field-photos'
+label = 'fig:field-photos'
+position = 'b!'
+%%% end-figure
+
+```
+[figure]
+foo
+bar
+```
 
 Figures are stored in `src/figures`.
 Each figure is defined by two files:
@@ -26,21 +89,28 @@ src
     ├── age-plot.md
     ├── age-plot.pdf
     ├── field-photos.md
-    ├── field-photos.md
-    ├── geol-map.md
-    └── geol-map.pdf
+    └── field-photos.md
 ```
 
-In `src/body.md`, you may insert a figure using simple `toml` syntax such as:
+In `src/body.md`, you may insert a figure such as fig. \ref{fig:field-photos} using simple `toml` syntax:
 
 ```
 %%% figure
-name = 'age-plot'
-label = 'fig:age-plot'
+name = 'field-photos'
+label = 'fig:field-photos'
 %%% end-figure
 ```
 
-This will create a floating figure such as fig. \ref{fig:age-plot}.
+The `toml` block must start with `%%% figure` and end with `%%% end-figure`.
+The `name` attribute is mandatory and must correspond to a pair of files in `src/figures`.
+Other possible attributes are:
+
+- `label`: used to reference the figure number elsewhere in the text: `Fig. \ref{fig:field-photos}` will be typeset as “Fig. \ref{fig:field-photos}”.
+- `width`
+- `height`
+- `position`
+- `sidecaption`
+- `sidecaptionwidth`
 
 # Custom commands
 
@@ -48,11 +118,10 @@ You may define \LaTeX{} commands at the top of this source file using `\newcomma
 
 ```
 \newcommand{\foo}{FOO}
-\newcommand{\baz}{BAZ}
 \newcommand{\degC}[1]{\,°C}
 ```
 
-Thereafter, `\foo{}` in the source will be typeset as \foo{}, ```\baz{}``` as \baz{}, and `37.2\degC{}` as 37.2\degC{}.
+Thereafter, `\foo{}` in the source will be typeset as \foo{} and `37.2\degC{}` as 37.2\degC{}.
 
 # Citations
 
@@ -91,7 +160,7 @@ sidecaptionwidth = '0.45'
 
 # Results
 
-Vivteeerra aliquet iddn section eget sit amet tellus cras. Et netus et malesuada fames axx turpsdis \ref{sec:methods} egestas. Praesent elementum facilisis leo vel fringilla est. Nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi. Dictum non consectetur a erat nam at lectus urna. Facilisi etiam dignissim diam quis enim lobortis. Magna sit amet purus gravida quis blandit.
+Vivteeerra aliquet iddn section eget sit amet tellus cras. Et netus et malesuada fames axx turpsdis \ref{sec:metadata} egestas. Praesent elementum facilisis leo vel fringilla est. Nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi. Dictum non consectetur a erat nam at lectus urna. Facilisi etiam dignissim diam quis enim lobortis. Magna sit amet purus gravida quis blandit.
 
 %%% table
 name = 'table-pdf'

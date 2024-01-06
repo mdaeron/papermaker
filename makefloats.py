@@ -17,8 +17,10 @@ def makefig(lines):
 	hstr = f"height={meta['height']}" if 'height' in meta else ""
 	shapestr = ','.join([_ for _ in [wstr, hstr] if _])	
 
+	position = meta['position'] if 'position' in meta else ''
+
 	if 'sidecaption' not in meta:
-		return f"""\\begin{{figure}}[{meta['position']}]
+		return f"""\\begin{{figure}}[{position}]
 \\center
 \\includegraphics[{shapestr}]{{input/{meta['name']}}}\\\\
 \\caption{{
@@ -30,7 +32,7 @@ def makefig(lines):
 	else:
 		sidecaptionwidth = float(meta['sidecaptionwidth']) if 'sidecaptionwidth' in meta else 0.5
 		if meta['sidecaption'] in ['right', 'r']:
-			return f"""\\begin{{figure}}[{meta['position']}]
+			return f"""\\begin{{figure}}[{position}]
 \\begin{{minipage}}{{{0.95-sidecaptionwidth}\\textwidth}}
 \\includegraphics[{shapestr}]{{input/{meta['name']}}}
 \\end{{minipage}}
@@ -44,7 +46,7 @@ def makefig(lines):
 \\end{{figure}}
 """
 		elif meta['sidecaption'] in ['left', 'l']:
-			return f"""\\begin{{figure}}[{meta['position']}]
+			return f"""\\begin{{figure}}[{position}]
 \\begin{{minipage}}{{{sidecaptionwidth}\\textwidth}}
 \\caption{{
 {caption}

@@ -5,10 +5,11 @@ oldstate = '1'
 
 with open('hash.log', 'w') as logid:
 	while newstate != oldstate:
-		subprocess.run(['xelatex', 'main', '-halt-on-error'])
-		subprocess.run(['biber', 'main'])
+		subprocess.run(['xelatex', 'article'])
+# 		subprocess.run(['xelatex', '--interaction=batchmode', 'article', '2>&1', '>', 'xelatex.log'])
+		subprocess.run(['biber', 'article', '--onlylog'])
 		hasher = hashlib.md5()
-		with open('main.out', 'rb') as fid:
+		with open('article.out', 'rb') as fid:
 			hasher.update(fid.read())
 		oldstate = newstate
 		newstate = hasher.hexdigest()

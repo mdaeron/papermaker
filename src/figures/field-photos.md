@@ -1,0 +1,1 @@
+**Example of a floating figure**: (A) Typical cobble sampled on Zalqa fan; (B) surface and depth profile on Aajâqa fan. Original figure from \namecite{Daeron-2004}.

@@ -1,4 +1,4 @@
-title = 'Papermaker — an attempt at frictionless typesetting of publication-ready scientific articles'
+title = 'Papermaker: an attempt at frictionless typesetting of publication-ready scientific articles'
 
 [[author]]
 name = 'M. Daëron'
@@ -21,7 +21,7 @@ email = 'pam@dmpc.com'
 name = 'M. G. Scott'
 affiliations = ['DMPC', 'MSPC']
 email = 'micheal@mspc.com'
-corresponding = true
+# corresponding = true
 
 [affiliations]
 LSCE = "Laboratoire des Sciences du Climat et de l'Environnement"
