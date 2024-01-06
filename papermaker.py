@@ -91,7 +91,8 @@ def maketitle(
 
 
 def makefig(lines):
-	meta = tomllib.load(io.BytesIO(''.join(lines).encode()))
+
+	meta = tomllib.load(io.BytesIO(''.join(lines).encode()))['figure']
 	
 	print(f'-> Make figure {meta["name"]}')
 
@@ -151,7 +152,7 @@ def makefig(lines):
 	raise Error(f"Failed to make figure \"{meta['name']}\".")
 
 def maketable(lines):
-	meta = tomllib.load(io.BytesIO(''.join(lines).encode()))
+	meta = tomllib.load(io.BytesIO(''.join(lines).encode()))['table']
 
 	print(f'-> Make table {meta["name"]}')
 
@@ -199,26 +200,38 @@ def makefloats():
 		lines = fid.readlines()
 
 	while True:
+		incodeblock = False
 		for k,l in enumerate(lines):
-			if l.startswith('%%% figure'):
-				kstart = k
-			elif l.startswith('%%% end-figure'):
-				kstop = k
-				break
+			if l.startswith('```'):
+				incodeblock = not incodeblock
+				if incodeblock:
+					kstart = k
+				else:
+					kstop = k
+					linegroup = lines[kstart+1:kstop]
+					if any([l.startswith('[figure]') or l.startswith('[table]') for l in linegroup]):
+							break
 		else:
 			break
-		lines = lines[:kstart] + [makefig(lines[kstart+1:kstop])] + lines[kstop+1:]
 
-	while True:
-		for k,l in enumerate(lines):
-			if l.startswith('%%% table'):
-				kstart = k
-			elif l.startswith('%%% end-table'):
-				kstop = k
+		for l in linegroup:
+			if l.startswith('[figure]'):
+				lines = lines[:kstart] + [makefig(lines[kstart+1:kstop])] + lines[kstop+1:]
 				break
-		else:
-			break
-		lines = lines[:kstart] + [maketable(lines[kstart+1:kstop])] + lines[kstop+1:]
+			elif l.startswith('[table]'):
+				lines = lines[:kstart] + [maketable(lines[kstart+1:kstop])] + lines[kstop+1:]
+				break
+
+# 	while True:
+# 		for k,l in enumerate(lines):
+# 			if l.startswith('%%% table'):
+# 				kstart = k
+# 			elif l.startswith('%%% end-table'):
+# 				kstop = k
+# 				break
+# 		else:
+# 			break
+# 		lines = lines[:kstart] + [maketable(lines[kstart+1:kstop])] + lines[kstop+1:]
 
 	out = ''.join(lines)
 
@@ -272,6 +285,7 @@ try:
 except:
 	sys.exit('Error: Could not create maketitle.tex.')
 
+makefloats()
 try:
 	print('-> Make floats')
 	makefloats()

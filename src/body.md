@@ -20,13 +20,6 @@ This is an early-stage work in progress. For now, you need to install a LaTeX di
 * From `papermaker`'s root directory, `pixi run build` should process your paper, installing the required dependencies as needed in the rist run.
 * When building an article, `papermaker` looks for source files in `src`, and the output is saved to `build`.
 
-```
-[figure]
-foo
-bar
-```
-
-
 # Source files
 
 ## Metadata
@@ -63,18 +56,6 @@ Other parts of the document are from `src/abstract.md`,  `src/contributions.md`,
 
 ## Figures
 
-%%% figure
-name = 'field-photos'
-label = 'fig:field-photos'
-position = 'b!'
-%%% end-figure
-
-```
-[figure]
-foo
-bar
-```
-
 Figures are stored in `src/figures`.
 Each figure is defined by two files:
 
@@ -92,25 +73,37 @@ src
     └── field-photos.md
 ```
 
-In `src/body.md`, you may insert a figure such as fig. \ref{fig:field-photos} using simple `toml` syntax:
+In `src/body.md`, you may insert a figure such as fig. \ref{fig:field-photos} using simple `toml` syntax enclosed in at least three backticks:
+
+\vspace{2ex}
+\begin{lstlisting}
+ ```
+ [figure]
+ name = 'field-photos'
+ label = 'fig:field-photos'
+ position = 'b!'
+ ```
+\end{lstlisting}
+\vspace{2ex}
 
 ```
-%%% figure
+[figure]
 name = 'field-photos'
 label = 'fig:field-photos'
-%%% end-figure
+position = 'b!'
 ```
 
-The `toml` block must start with `%%% figure` and end with `%%% end-figure`.
 The `name` attribute is mandatory and must correspond to a pair of files in `src/figures`.
 Other possible attributes are:
 
-- `label`: used to reference the figure number elsewhere in the text: `Fig. \ref{fig:field-photos}` will be typeset as “Fig. \ref{fig:field-photos}”.
+- `label`: used to reference the figure number elsewhere in the text: `Fig. \ref{fig:field-photos}` will be typeset as “Fig. \ref{fig:field-photos}”. You may use a non-breakable space (`alt-space` on a Mac) before the `\ref` command.
 - `width`
 - `height`
 - `position`
 - `sidecaption`
 - `sidecaptionwidth`
+
+Figure \ref{fig:field-photos} is an example figure created from the backtick block above.
 
 # Custom commands
 
@@ -141,32 +134,35 @@ print(foo.bar)
 
 Eu augue ut lectus arcu bibendum at varius vel pharetra. Feugiat vivamus at augue eget arcu dictum varius duis. Mattis enim ut tellus elementum sagittis vitae et leo. Ac ut consequat semper viverra nam libero justo laoreet sit. Enim ut tellus elementum sagittis vitae et leo. Amet nisl suscipit adipiscing bibendum est. Non blandit massa enim nec dui nunc mattis enim ut. Tellus elementum sagittis vitae et leo duis ut.
 
-%%% table
+```
+[table]
 name = 'table-latex'
 position = 'b!'
 label = 'tab:latex'
-%%% end-table
+```
 
 Amet commodo nulla facilisi (\ref{eq:foo}) nullam vehicula. Congue mauris rhoncus aenean vel elit. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Euismod lacinia at quis risus sed vulputate odio. Lacinia quis vel eros donec ac odio. Mattis pellentesque id nibh tortor id aliquet lectus. Mi proin sed libero enim sed faucibus turpis in. Ut sem viverra aliquet eget sit amet tellus cras. Egestas diam in arcu cursus. Enim ut sem viverra aliquet. Tortor condimentum lacinia quis vel eros donec ac odio tempor. Tellus mauris a diam maecenas sed enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Lectus arcu bibendum at varius vel pharetra vel turpis nunc.
 
-%%% figure
+```
+[figure]
 name = 'qmc'
 position = 'tb'
 label = 'fig:qmc'
 width = '\textwidth'
 sidecaption = 'right'
 sidecaptionwidth = '0.45'
-%%% end-figure
+```
 
 # Results
 
 Vivteeerra aliquet iddn section eget sit amet tellus cras. Et netus et malesuada fames axx turpsdis \ref{sec:metadata} egestas. Praesent elementum facilisis leo vel fringilla est. Nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi. Dictum non consectetur a erat nam at lectus urna. Facilisi etiam dignissim diam quis enim lobortis. Magna sit amet purus gravida quis blandit.
 
-%%% table
+```
+[table]
 name = 'table-pdf'
 position = 'b!'
 label = 'tab:pdf'
-%%% end-table
+```
 
 Faucibus vitae aliquet nec ullamcorper sit amet risus nullam eget. Ultricies integer quis auctor elit sed vulputate mi. Vestibulum lorem sed risus ultricies tristique. Morbi tristique senectus et netus et malesuada fames. Ultricies lacus sed turpis tincidunt id aliquet risus feugiat in. Et malesuada fames ac turpis egestas maecenas pharetra. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. At risus viverra adipiscing at in tellus integer feugiat scelerisque. Sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra. Eros in cursus turpis massa tincidunt dui ut.
 
