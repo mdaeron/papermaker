@@ -172,7 +172,7 @@ Numbered equations follow LaTeX syntax, using either UTF encoding (e.g `δ`) or 
 Unnumbered equations use LaTeX math's display mode:
 
 ```
-\[
+$$
 \sigma = \sum_i4\cdot α^2_i
-\]
+$$
 ```
