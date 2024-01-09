@@ -1,138 +1,43 @@
-# Design goals and philosophy
+# Introduction
 
-* separate content (source files) and formatting (template)
-* use Markdown format by default, keeping the option to use LaTeX whenever needed
-* define metadata (title, authors, affiliations...) only once, all in a single `toml` file
-* use LaTeX for inline math expressions and numbered or unnumbered equations
-* use simple 'toml' syntax to specify floating figures and tables
-* use LaTeX syntax for referencing figures, tables, sections or page numbers
-* insert in-text citations defined in a separate BibTeX file, with the list of references being generated automatically
-* optionally define custom LaTeX commands and/or document-wide text substitutions
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium viverra suspendisse potenti nullam ac tortor vitae. In cursus turpis massa tincidunt dui ut ornare. Aliquam purus sit amet luctus venenatis lectus magna fringilla. Donec massa sapien faucibus et molestie ac. At urna condimentum mattis pellentesque id nibh tortor id aliquet. Vitae justo eget magna fermentum iaculis eu non diam. Egestas integer eget aliquet nibh praesent tristique. Mauris cursus mattis molestie a iaculis at. Nulla facilisi nullam vehicula ipsum a. Id donec ultrices tincidunt arcu non sodales neque sodales. Hac habitasse platea dictumst vestibulum. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium.
 
-The core idea behind `papermaker` is that *writing* LaTeX is not particularly hard using modern implementations like XeLaTeX, which use UTF-8 encoding by default. It is usually much more challenging/time-consuming to fine-tune the final document's format by fiddling with the LaTeX source. On the other hand, it is much easier to share/re-use text writtent in Markdown than LaTeX. `papermaker` thus uses Markdown by default, keeping the considerable power of LaTeX available where needed, and hides the complex LaTeX syntax for important constructs such as floating figures behind a simpler `toml` syntax.
-
-# Installation and usage
-
-This is an early-stage work in progress. For now, you need to install a LaTeX distribution and the other dependencies are handled by [pixi](https://pixi.sh).
-
-* Install [TeX Live](https://www.tug.org/svn/texlive) (on a Mac, your best option is [MacTeX](http://www.tug.org/mactex))
-* Install pixi (instructions [here](https://pixi.sh))
-* From `papermaker`'s root directory, `pixi run build` should process your paper, installing the required dependencies as needed in the rist run.
-* When building an article, `papermaker` looks for source files in `src`, and the output is saved to `build`.
-
-# Source files
-
-## Metadata
-\label{sec:metadata}
-
-Metadata such as authors' names, emails, ORCIDs, institutions, or the article's title, are defined in `src/metadata.toml`.
-
-\vspace{2ex}
-\begin{lstlisting}
-title = 'The title of the paper'
-
-[[author]]
-name = 'J. Smith'
-affiliations = 'USS'
-email = 'john.smith@server.net'
-orcid = '0000-0000-000-000'
-corresponding = true
-
-[[author]]
-name = 'J. Doe'
-affiliations = ['AFA', 'USS']
-email = 'jane.doe@server.net'
-
-[affiliations]
-USS = "University of Scientific Studies"
-AFA = "Academy of the Fine Arts"
-\end{lstlisting}
-\vspace{2ex}
-
-## Text
-
-The body of the article is typeset based on the contents of `src/body.md`.
-Other parts of the document are from `src/abstract.md`,  `src/contributions.md`,  `src/acknowledgements.md`, and  `src/reproducibility.md`.
-
-## Figures
-
-Figures are stored in `src/figures`.
-Each figure is defined by two files:
-
-- a single PDF file, with a `.pdf` extension, corresponding to the contents of the figure (e.g., a picture or a plot)
-- a single Markdown file, with a `.md` extension, corresponding to the caption for this figure.
-
-For example, `src/figures` may contain:
-
-```
-src
-└── figures
-    ├── age-plot.md
-    ├── age-plot.pdf
-    ├── field-photos.md
-    └── field-photos.md
-```
-
-In `src/body.md`, you may insert a figure such as fig. \ref{fig:field-photos} using simple `toml` syntax enclosed in at least three backticks:
-
-\vspace{2ex}
-\begin{lstlisting}
- ```
- [figure]
- name = 'field-photos'
- label = 'fig:field-photos'
- position = 'b!'
- ```
-\end{lstlisting}
-\vspace{2ex}
-
-```
-[figure]
-name = 'field-photos'
-label = 'fig:field-photos'
-position = 'b!'
-```
-
-The `name` attribute is mandatory and must correspond to a pair of files in `src/figures`.
-Other possible attributes are:
-
-- `label`: used to reference the figure number elsewhere in the text: `Fig. \ref{fig:field-photos}` will be typeset as “Fig. \ref{fig:field-photos}”. You may use a non-breakable space (`alt-space` on a Mac) before the `\ref` command.
-- `width`
-- `height`
-- `position`
-- `sidecaption`
-- `sidecaptionwidth`
-
-Figure \ref{fig:field-photos} is an example figure created from the backtick block above.
-
-# Custom commands
-
-You may define \LaTeX{} commands at the top of this source file using `\newcommand{}`:
-
-```
-\newcommand{\foo}{FOO}
-\newcommand{\degC}[1]{\,°C}
-```
-
-Thereafter, `\foo{}` in the source will be typeset as \foo{} and `37.2\degC{}` as 37.2\degC{}.
-
-# Citations
-
-You may cite references defined in the Bib\TeX{} file `src/refs.bib` using the following commands.
-
-Pretium aenean pharetra magna ac placerat vestibulum lectus mauris. Scelerisque varius morbi enim nunc \cite{Coplen-2007}. In vitae turpis massa sed elementum tempus. Et magnis dis parturient montes nascetur. Blandit libero volutpat sed cras ornare arcu dui vivamus. Urna neque viverra justo nec ultrices dui sapien. Purus in mollis nunc sed id semper. Auctor augue mauris augue neque gravida in fermentum et sollicitudin. Fringilla ut morbi tincidunt augue. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper sit. Morbi tincidunt ornare massa eget egestas purus viverra \namecite{Coogan-2019}.
+Feugiat pretium nibh ipsum consequat nisl. Morbi quis commodo odio aenean. Volutpat blandit aliquam etiam erat. Nisi est sit amet facilisis magna etiam tempor. Tempor commodo ullamcorper a lacus vestibulum sed. A condimentum vitae sapien pellentesque habitant morbi. Integer malesuada nunc vel risus commodo viverra maecenas. Sit amet nisl purus in mollis nunc sed id semper. Eu turpis egestas pretium aenean pharetra. Vivamus arcu felis bibendum ut tristique et egestas. In egestas erat imperdiet sed euismod nisi porta lorem. Placerat vestibulum lectus mauris ultrices eros. Tellus orci ac auctor augue mauris. Consequat interdum varius sit amet mattis. Sed odio morbi quis commodo odio. Pharetra magna ac placerat vestibulum lectus mauris. Enim neque volutpat ac tincidunt vitae semper.
 
 # Methods
-\label{sec:methods}
 
-Vitae nunc sed velit dignissim sodales. Mauris a diam maecenas sed. Sed ullamcorper morbi tincidunt ornare massa. Ut diam quam nulla porttitor massa id neque aliquam vestibulum. Massa sapien faucibus et molestie ac feugiat sed. Tortor consequat id porta nibh venenatis cras. Nulla pellentesque dignissim enim sit amet venenatis urna. Viverra nibh cras pulvinar mattis nunc sed. Ac odio tempor orci dapibus ultrices in. Posuere ac ut consequat semper viverra nam libero justo. Enim tortor at auctor urna.
+In ornare quam viverra orci. Sagittis orci a scelerisque purus semper. Quam quisque id diam vel. Ultrices vitae auctor eu augue. Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Sed tempus urna et pharetra. Duis ultricies lacus sed turpis tincidunt. Tortor dignissim convallis aenean et tortor at risus viverra. Facilisi nullam vehicula ipsum a arcu. Lobortis mattis aliquam faucibus purus in massa tempor.
+
+Ullamcorper sit amet risus nullam eget felis eget. In nibh mauris cursus mattis molestie a iaculis. Orci eu lobortis elementum nibh tellus. Magna sit amet purus gravida quis blandit turpis cursus. Quam id leo in vitae turpis massa. Quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna. Aliquam purus sit amet luctus venenatis lectus magna fringilla. Elementum curabitur vitae nunc sed velit dignissim sodales. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Scelerisque viverra mauris in aliquam. Dolor magna eget est lorem. Sodales ut etiam sit amet nisl purus in. Malesuada fames ac turpis egestas sed tempus urna et pharetra. Habitant morbi tristique senectus et netus et. Rutrum quisque non tellus orci ac. Vulputate sapien nec sagittis aliquam. Adipiscing elit pellentesque habitant morbi tristique senectus et. Diam sit amet nisl suscipit. Odio morbi quis commodo odio aenean.
+
+# Results
+
+This is `inline code`, and this is a code block:
 
 ```
 import foo
 print(foo.bar)
 ```
 
-Eu augue ut lectus arcu bibendum at varius vel pharetra. Feugiat vivamus at augue eget arcu dictum varius duis. Mattis enim ut tellus elementum sagittis vitae et leo. Ac ut consequat semper viverra nam libero justo laoreet sit. Enim ut tellus elementum sagittis vitae et leo. Amet nisl suscipit adipiscing bibendum est. Non blandit massa enim nec dui nunc mattis enim ut. Tellus elementum sagittis vitae et leo duis ut.
+Here are references to section \ref{sec:discussion}, to equation (\ref{eq:foo}) to table \ref{tab:latex} and to figure \ref{fig:qmc}.
+
+Here is a numbered equation:
+
+\begin{equation}
+\sigma = \sum_i4\cdot α^2_i
+\label{eq:foo}
+\end{equation}
+
+And here is an unnumbered equation:
+
+$$
+\sigma = \sum_i4\cdot α^2_i
+$$
+
+We can also use automatic substitutions (e.g., Δ47).
+And here \cite{Coogan-2019} are citations \namecite{Coogan-Gillis-2018}.
+
+Tortor at auctor urna nunc id. Mauris ultrices eros in cursus turpis massa tincidunt dui ut. Sollicitudin ac orci phasellus egestas tellus rutrum tellus. Velit dignissim sodales ut eu sem integer vitae justo. Id leo in vitae turpis massa sed elementum tempus. Orci a scelerisque purus semper eget duis. Nunc aliquet bibendum enim facilisis gravida neque convallis. Nibh mauris cursus mattis molestie a iaculis at erat. Accumsan sit amet nulla facilisi morbi tempus. Quam vulputate dignissim suspendisse in. Quis auctor elit sed vulputate mi sit amet. Tellus in hac habitasse platea dictumst vestibulum rhoncus. Ac auctor augue mauris augue neque gravida in. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Nisl rhoncus mattis rhoncus urna neque viverra justo. Laoreet non curabitur gravida arcu ac tortor. Tellus cras adipiscing enim eu turpis egestas. Leo in vitae turpis massa sed elementum. Morbi enim nunc faucibus a pellentesque sit. Proin libero nunc consequat interdum.
 
 ```
 [table]
@@ -141,7 +46,20 @@ position = 'b!'
 label = 'tab:latex'
 ```
 
-Amet commodo nulla facilisi (\ref{eq:foo}) nullam vehicula. Congue mauris rhoncus aenean vel elit. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Euismod lacinia at quis risus sed vulputate odio. Lacinia quis vel eros donec ac odio. Mattis pellentesque id nibh tortor id aliquet lectus. Mi proin sed libero enim sed faucibus turpis in. Ut sem viverra aliquet eget sit amet tellus cras. Egestas diam in arcu cursus. Enim ut sem viverra aliquet. Tortor condimentum lacinia quis vel eros donec ac odio tempor. Tellus mauris a diam maecenas sed enim. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Lectus arcu bibendum at varius vel pharetra vel turpis nunc.
+Vestibulum mattis ullamcorper velit sed ullamcorper. Et leo duis ut diam quam nulla porttitor massa. Eget mi proin sed libero enim sed faucibus turpis in. Et ligula ullamcorper malesuada proin libero nunc consequat interdum. Ac turpis egestas maecenas pharetra convallis posuere morbi leo. In vitae turpis massa sed elementum tempus egestas sed. Mauris nunc congue nisi vitae suscipit. Velit dignissim sodales ut eu sem. Cursus in hac habitasse platea. Rhoncus mattis rhoncus urna neque viverra justo. Ac turpis egestas integer eget aliquet nibh. Fames ac turpis egestas sed. Feugiat nisl pretium fusce id velit. Pellentesque nec nam aliquam sem et tortor consequat id. Vivamus arcu felis bibendum ut tristique et egestas. In cursus turpis massa tincidunt dui ut ornare. Purus sit amet luctus venenatis lectus magna. Adipiscing diam donec adipiscing tristique risus nec. Faucibus scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam. Ac placerat vestibulum lectus mauris.
+
+```
+[figure]
+name = 'field-photos'
+position = 'tb'
+label = 'fig:field-photos'
+width = '11cm'
+```
+
+# Discussion
+\label{sec:discussion}
+
+Nulla at volutpat diam ut venenatis. Adipiscing at in tellus integer feugiat scelerisque varius. Tempor nec feugiat nisl pretium fusce. Ut tortor pretium viverra suspendisse potenti. Vitae turpis massa sed elementum tempus. Ornare lectus sit amet est placerat. A lacus vestibulum sed arcu non. Semper auctor neque vitae tempus quam pellentesque nec nam aliquam. Cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque. Enim nec dui nunc mattis enim ut. Pharetra sit amet aliquam id. Nisl purus in mollis nunc sed id semper risus in. Malesuada pellentesque elit eget gravida cum sociis natoque penatibus et. Adipiscing commodo elit at imperdiet dui accumsan sit amet nulla. Eu consequat ac felis donec et odio. Habitant morbi tristique senectus et. Curabitur vitae nunc sed velit dignissim sodales ut eu sem.
 
 ```
 [figure]
@@ -153,9 +71,7 @@ sidecaption = 'right'
 sidecaptionwidth = 0.45
 ```
 
-# Results
-
-Vivteeerra aliquet iddn section eget sit amet tellus cras. Et netus et malesuada fames axx turpsdis \ref{sec:metadata} egestas. Praesent elementum facilisis leo vel fringilla est. Nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi. Dictum non consectetur a erat nam at lectus urna. Facilisi etiam dignissim diam quis enim lobortis. Magna sit amet purus gravida quis blandit.
+Sed libero enim sed faucibus turpis. Tempor orci eu lobortis elementum nibh tellus molestie nunc. Quisque sagittis purus sit amet volutpat consequat. Diam maecenas sed enim ut sem. Cursus vitae congue mauris rhoncus aenean vel. Nunc non blandit massa enim nec dui nunc mattis enim. Sollicitudin tempor id eu nisl nunc mi ipsum faucibus vitae. Pellentesque habitant morbi tristique senectus et netus. Condimentum lacinia quis vel eros. Consequat id porta nibh venenatis. Interdum posuere lorem ipsum dolor sit. Donec adipiscing tristique risus nec feugiat in. Habitasse platea dictumst vestibulum rhoncus. Adipiscing elit duis tristique sollicitudin nibh sit. Odio facilisis mauris sit amet massa vitae tortor condimentum. Tristique senectus et netus et malesuada fames ac. Facilisi etiam dignissim diam quis enim lobortis. Enim nec dui nunc mattis enim ut.
 
 ```
 [table]
@@ -164,24 +80,18 @@ position = 'b!'
 label = 'tab:pdf'
 ```
 
-Faucibus vitae aliquet nec ullamcorper sit amet risus nullam eget. Ultricies integer quis auctor elit sed vulputate mi. Vestibulum lorem sed risus ultricies tristique. Morbi tristique senectus et netus et malesuada fames. Ultricies lacus sed turpis tincidunt id aliquet risus feugiat in. Et malesuada fames ac turpis egestas maecenas pharetra. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. At risus viverra adipiscing at in tellus integer feugiat scelerisque. Sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra. Eros in cursus turpis massa tincidunt dui ut.
+Massa tempor nec feugiat nisl pretium. Mattis nunc sed blandit libero volutpat sed cras ornare arcu. Netus et malesuada fames ac turpis egestas. Luctus accumsan tortor posuere ac. Rhoncus urna neque viverra justo nec ultrices dui sapien eget. Dui ut ornare lectus sit amet est placerat. Id nibh tortor id aliquet lectus proin nibh. Pharetra convallis posuere morbi leo urna molestie at elementum eu. Vulputate ut pharetra sit amet aliquam id diam maecenas. Odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Velit laoreet id donec ultrices. Gravida quis blandit turpis cursus in. Accumsan sit amet nulla facilisi morbi tempus. Nullam non nisi est sit amet facilisis.
 
-\begin{equation}
-\sigma = \sum_i4\cdot α^2_i
-\label{eq:foo}
-\end{equation}
+Aliquam sem et tortor consequat id porta nibh venenatis cras. Ultrices dui sapien eget mi proin sed libero enim. Pulvinar elementum integer enim neque volutpat ac. Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing. Sit amet porttitor eget dolor. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Sagittis orci a scelerisque purus semper eget. Nunc id cursus metus aliquam eleifend mi in. Justo eget magna fermentum iaculis. Tempor id eu nisl nunc mi ipsum faucibus. Lacinia at quis risus sed vulputate. Egestas integer eget aliquet nibh praesent. Feugiat pretium nibh ipsum consequat. Pharetra pharetra massa massa ultricies. Convallis a cras semper auctor neque vitae tempus quam pellentesque. Varius sit amet mattis vulputate. Pharetra massa massa ultricies mi quis hendrerit dolor magna. Mauris ultrices eros in cursus turpis.
 
-Bibendum ut Δ47 tristique et egestas quis. Maecenas volutpat blandit aliquam etiam erat. Velit egestas dui id ornare arcu odio. Commodo ullamcorper a lacus vestibulum sed arcu non odio. Ut lectus arcu bibendum at varius vel. Vitae tortor condimentum lacinia quis. Mattis nunc sed blandit libero volutpat. Dolor sit amet consectetur adipiscing elit duis tristique sollicitudin nibh. Est ullamcorper eget nulla facilisi. In massa tempor nec feugiat nisl pretium fusce. At consectetur lorem donec massa sapien. Dui sapien eget mi proin sed libero enim sed. Eget velit aliquet sagittis id consectetur. A diam sollicitudin tempor id eu nisl. Eleifend quam adipiscing vitae proin. Nunc mattis enim ut tellus elementum sagittis.
+Aliquet bibendum enim facilisis gravida neque. At volutpat diam ut venenatis. Viverra justo nec ultrices dui sapien eget mi. Tempus quam pellentesque nec nam aliquam. Mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing. Eget magna fermentum iaculis eu non diam. Consectetur adipiscing elit ut aliquam. Augue neque gravida in fermentum et sollicitudin ac orci phasellus. Velit sed ullamcorper morbi tincidunt. Metus aliquam eleifend mi in nulla posuere. Venenatis a condimentum vitae sapien pellentesque habitant morbi.
 
-# Discussion
+Non curabitur gravida arcu ac. Lobortis elementum nibh tellus molestie nunc non blandit massa. Nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus. Eget nulla facilisi etiam dignissim. Tristique risus nec feugiat in fermentum posuere urna nec. Nunc mattis enim ut tellus. Aliquam nulla facilisi cras fermentum odio eu feugiat pretium. Egestas egestas fringilla phasellus faucibus scelerisque. Amet venenatis urna cursus eget nunc scelerisque viverra mauris in. Ut morbi tincidunt augue interdum velit euismod in pellentesque. Turpis egestas pretium aenean pharetra.
 
-Feugiat vivamus at augue eget. In hendrerit gravida rutrum quisque non tellus. Neque vitae tempus quam pellentesque. Porttitor lacus luctus accumsan tortor posuere ac. Egestas sed tempus urna et. Suspendisse ultrices gravida dictum fusce ut placerat orci nulla. Nisl nisi scelerisque eu ultrices vitae auctor eu. Massa eget egestas purus viverra accumsan in. Sit amet justo donec enim diam vulputate ut pharetra. Ullamcorper velit sed ullamcorper morbi tincidunt. Morbi quis commodo odio aenean. Sed adipiscing diam donec adipiscing tristique risus nec.
-
-Elit pellentesque habitant morbi tristique senectus et. Pellentesque nec nam aliquam sem et tortor consequat id porta. Scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt. Vitae ultricies leo integer malesuada nunc vel risus commodo. Dignissim convallis aenean et tortor at risus viverra adipiscing. Sit amet justo donec enim. Neque aliquam vestibulum morbi blandit cursus risus. Quis blandit turpis cursus in hac habitasse platea dictumst. Neque aliquam vestibulum morbi blandit cursus risus at. Et malesuada fames ac turpis egestas. Egestas erat imperdiet sed euismod nisi porta lorem. Nisl pretium fusce id velit ut. Nisl condimentum id venenatis a condimentum vitae sapien pellentesque habitant. Vestibulum morbi blandit cursus risus at. Eget sit amet tellus cras adipiscing enim. Proin nibh nisl condimentum id venenatis a condimentum vitae sapien. Viverra nam libero justo laoreet sit amet cursus. Metus aliquam eleifend mi in.
-
-Neque gravida in fermentum et sollicitudin ac. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Cursus in hac habitasse platea dictumst. Tincidunt tortor aliquam nulla facilisi cras fermentum. Nam libero justo laoreet sit amet cursus. Sed turpis tincidunt id aliquet risus feugiat in ante metus. Nisl condimentum id venenatis a condimentum vitae sapien pellentesque. A cras semper auctor neque vitae tempus quam. Mauris nunc congue nisi vitae. Donec et odio pellentesque diam volutpat commodo sed egestas egestas. Sed ullamcorper morbi tincidunt ornare massa eget egestas purus. Vulputate ut pharetra sit amet aliquam id diam maecenas ultricies. Viverra orci sagittis eu volutpat odio facilisis mauris sit. Suscipit tellus mauris a diam maecenas sed enim ut. Venenatis cras sed felis eget velit. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Scelerisque varius morbi enim nunc faucibus. Sed blandit libero volutpat sed.
+Eget dolor morbi non arcu risus quis varius quam quisque. Convallis convallis tellus id interdum. Et odio pellentesque diam volutpat commodo sed. Mi sit amet mauris commodo quis imperdiet. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus. Sed enim ut sem viverra aliquet eget sit. Orci nulla pellentesque dignissim enim sit amet. Tortor posuere ac ut consequat semper viverra nam libero justo. Mi sit amet mauris commodo quis imperdiet. At varius vel pharetra vel turpis nunc eget lorem.
 
 # Conclusion
 
-Integer vitae justo eget magna fermentum iaculis eu non. Pulvinar mattis nunc sed blandit libero volutpat sed. Est lorem ipsum dolor sit amet consectetur adipiscing. Vitae suscipit tellus mauris a diam. Volutpat blandit aliquam etiam erat velit scelerisque in dictum. Nibh mauris cursus mattis molestie. Adipiscing elit duis tristique sollicitudin nibh sit amet. Nunc consequat interdum varius sit amet. Eget duis at tellus at urna condimentum mattis pellentesque id. Leo vel orci porta non pulvinar. Adipiscing vitae proin sagittis nisl rhoncus mattis. Felis bibendum ut tristique et egestas. Blandit cursus risus at ultrices mi tempus imperdiet nulla malesuada. Malesuada nunc vel risus commodo viverra maecenas. Vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Risus viverra adipiscing at in tellus. Duis ut diam quam nulla porttitor. Sed cras ornare arcu dui vivamus. Sed adipiscing diam donec adipiscing tristique risus. Turpis tincidunt id aliquet risus feugiat in \namecite{Coogan-Gillis-2018}.
+Sem viverra aliquet eget sit. Id leo in vitae turpis massa sed elementum tempus. Sed tempus urna et pharetra. Ullamcorper a lacus vestibulum sed arcu. Vitae tempus quam pellentesque nec nam aliquam sem et. Pharetra magna ac placerat vestibulum lectus mauris. Ornare lectus sit amet est placerat. At tempor commodo ullamcorper a lacus vestibulum. Arcu non odio euismod lacinia. Netus et malesuada fames ac turpis egestas sed. Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras.
 
+Magna etiam tempor orci eu lobortis elementum nibh. Tempus imperdiet nulla malesuada pellentesque elit eget gravida cum. Urna nec tincidunt praesent semper feugiat nibh sed. Nunc mi ipsum faucibus vitae aliquet nec ullamcorper. At risus viverra adipiscing at in tellus integer. Viverra vitae congue eu consequat ac felis donec et. Nunc pulvinar sapien et ligula ullamcorper malesuada. Ornare arcu odio ut sem nulla pharetra diam. Blandit cursus risus at ultrices mi tempus imperdiet. Morbi tristique senectus et netus et malesuada fames. Purus in massa tempor nec feugiat nisl pretium fusce. Purus semper eget duis at tellus at urna. Adipiscing diam donec adipiscing tristique risus. Ipsum dolor sit amet consectetur adipiscing elit duis tristique sollicitudin.

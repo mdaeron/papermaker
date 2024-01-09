@@ -73,10 +73,10 @@ src
     ├── age-plot.md
     ├── age-plot.pdf
     ├── field-photos.md
-    └── field-photos.md
+    └── field-photos.pdf
 ```
 
-In `src/body.md`, you may insert a figure such as fig. \ref{fig:field-photos} using simple `toml` syntax enclosed in at least three backticks:
+In `src/body.md`, you may insert a figure using simple `toml` syntax enclosed in at least three backticks:
 
 ```
 [figure]
@@ -88,7 +88,7 @@ position = 'b!'
 The `name` attribute is mandatory and must correspond to a pair of files in `src/figures`.
 Other possible attributes are:
 
-- `label`: used to reference the figure number elsewhere in the text: `Fig. \ref{fig:field-photos}` will be typeset as “Fig. \ref{fig:field-photos}”. You may use a non-breakable space (`alt-space` on a Mac) before the `\ref` command.
+- `label`: used to reference the figure number elsewhere in the text, using LaTeX syntax: `Fig. \ref{fig:field-photos}`. You may use a non-breakable space (`alt-space` on a Mac) before the `\ref` command.
 - `width`: specify the printed width of the figure; may be anything that LaTeX understand (e.g., `10cm`; `80mm`; `4in`; `0.8\textwidth`...).
 - `height`: specify the printed height of the figure; may be anything that LaTeX understand.
 - `position`: specify the desired position of the floating figure; you may use any combination of the following parameters:
@@ -107,7 +107,38 @@ Other possible attributes are:
 
 ## Tables
 
-> Work in progress
+Tables are stored in `src/tables`. Each table is defined by two files:
+
+- a single PDF file, with either a `.pdf` or a `.tex` extension, corresponding to the contents of the table
+- a single Markdown file, with a `.md` extension, corresponding to the caption for this table
+
+For example, `src/tables` may contain:
+
+```
+src
+└── figures
+    ├── depths.md
+    ├── depths.pdf
+    ├── samples.md
+    └── samples.tex
+```
+
+In `src/body.md`, you may insert a table such as using simple `toml` syntax enclosed in at least three backticks:
+
+```
+[table]
+name = 'depths'
+label = 'table:depths'
+position = 't!'
+```
+
+The `name` attribute is mandatory and must correspond to a pair of files in `src/tables`.
+Other possible attributes are:
+
+- `label`: used to reference the table number elsewhere in the text, using LaTeX syntax: `Table \ref{fig:field-photos}`. You may use a non-breakable space (`alt-space` on a Mac) before the `\ref` command.
+- `position`: specify the desired position of the floating table (see *Figures* section above)
+- `sidecaption`: if this keyword is present and set to one of `"right"`, `"left"`, `"r"`, or `"l"`, the caption will be typeset on the side rather than at the bottom of the table.
+- `sidecaptionwidth`: specify the width fraction used up by the side caption (default is `0.5`).
 
 ## Custom commands
 
